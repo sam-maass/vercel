@@ -1,5 +1,4 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { Redis } from "@upstash/redis";
 
 export type Preorder = {
   email: string;
@@ -7,27 +6,17 @@ export type Preorder = {
   createdAt: string;
 };
 
-const DATA_FILE = path.join(process.cwd(), "data", "preorders.json");
+const KEY = "preorders";
 
-async function ensureFile() {
-  await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
-  try {
-    await fs.access(DATA_FILE);
-  } catch {
-    await fs.writeFile(DATA_FILE, "[]", "utf8");
-  }
-}
+const redis = Redis.fromEnv();
 
 export async function readPreorders(): Promise<Preorder[]> {
-  await ensureFile();
-  const raw = await fs.readFile(DATA_FILE, "utf8");
-  return JSON.parse(raw) as Preorder[];
+  const items = await redis.lrange<Preorder>(KEY, 0, -1);
+  return items;
 }
 
 export async function addPreorder(entry: Preorder): Promise<void> {
-  const all = await readPreorders();
-  all.push(entry);
-  await fs.writeFile(DATA_FILE, JSON.stringify(all, null, 2), "utf8");
+  await redis.rpush(KEY, entry);
 }
 
 export async function totalKg(): Promise<number> {
