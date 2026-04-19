@@ -64,8 +64,8 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* Subtle animated gradient accent */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+        {/* Smooth gradient transition to next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-background via-background/70 to-transparent" />
       </section>
 
       {/* Craft Section */}
