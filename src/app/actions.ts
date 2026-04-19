@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { updateTag } from "next/cache";
 import { addPreorder } from "@/lib/preorders";
 
 export type PreorderState = {
@@ -24,7 +24,7 @@ export async function submitPreorder(
   }
 
   await addPreorder({ email, kg, createdAt: new Date().toISOString() });
-  revalidatePath("/");
+  updateTag("preorders");
   return {
     ok: true,
     message: `Thanks! Reserved ${kg} kg of Vercel Roast for ${email}.`,

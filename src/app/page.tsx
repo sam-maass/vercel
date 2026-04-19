@@ -1,12 +1,38 @@
 import Image from "next/image";
+import { Suspense } from "react";
+import { cacheTag } from "next/cache";
 import { readPreorders, totalKg } from "@/lib/preorders";
 import { PreorderForm } from "./preorder-form";
 
-export const dynamic = "force-dynamic";
-
-export default async function Home() {
+async function PreorderCounter() {
+  "use cache";
+  cacheTag("preorders");
   const [total, orders] = await Promise.all([totalKg(), readPreorders()]);
+  return (
+    <>
+      <p className="mt-4 font-serif text-7xl font-black text-primary">
+        {total}
+        <span className="ml-2 text-3xl font-bold text-primary/70">kg</span>
+      </p>
+      <p className="mt-2 text-muted-foreground">
+        across {orders.length} preorder{orders.length === 1 ? "" : "s"}
+      </p>
+    </>
+  );
+}
 
+function CounterFallback() {
+  return (
+    <>
+      <p className="mt-4 font-serif text-7xl font-black text-primary/40">
+        —<span className="ml-2 text-3xl font-bold text-primary/40">kg</span>
+      </p>
+      <p className="mt-2 text-muted-foreground">loading reservations…</p>
+    </>
+  );
+}
+
+export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Navigation */}
@@ -148,13 +174,9 @@ export default async function Home() {
                 <p className="text-sm font-semibold uppercase tracking-widest text-primary">
                   Reserved So Far
                 </p>
-                <p className="mt-4 font-serif text-7xl font-black text-primary">
-                  {total}
-                  <span className="ml-2 text-3xl font-bold text-primary/70">kg</span>
-                </p>
-                <p className="mt-2 text-muted-foreground">
-                  across {orders.length} preorder{orders.length === 1 ? "" : "s"}
-                </p>
+                <Suspense fallback={<CounterFallback />}>
+                  <PreorderCounter />
+                </Suspense>
               </div>
               <div className="mt-10 flex flex-col gap-3 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
