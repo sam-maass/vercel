@@ -65,11 +65,11 @@ export default async function Home() {
         </div>
 
         {/* Smooth gradient transition to next section */}
-        <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-background via-background/70 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-muted via-muted/70 to-transparent" />
       </section>
 
       {/* Craft Section */}
-      <section id="craft" className="bg-muted py-20">
+      <section id="craft" className="bg-muted pt-8 pb-20">
         <div className="mx-auto max-w-6xl px-6 md:px-12">
           <h2 className="mb-4 text-center font-serif text-4xl font-bold md:text-5xl">
             The Art of <span className="text-primary">Coffee Craft</span>
