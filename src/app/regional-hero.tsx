@@ -17,8 +17,7 @@ const HERO_CONTENT: Record<
   }
 > = {
   EU: {
-    // TODO: add /public/images/coffee-hero-eu.jpg
-    image: "/images/coffee-hero.jpg",
+    image: "/images/coffee-hero-eu.jpg",
     alt: "Espresso cup on a marble bistro table in morning light",
     badge: "Café Culture",
     headlineTop: "Slow down.",
@@ -28,8 +27,7 @@ const HERO_CONTENT: Record<
     ctaPrimary: "Reserve Your Roast",
   },
   NA: {
-    // TODO: add /public/images/coffee-hero-na.jpg
-    image: "/images/coffee-hero.jpg",
+    image: "/images/coffee-hero-na.jpg",
     alt: "Oversized to-go cup with steam against a city skyline",
     badge: "On the Go, Done Right",
     headlineTop: "Big cup energy.",
@@ -39,8 +37,7 @@ const HERO_CONTENT: Record<
     ctaPrimary: "Preorder Your Bags",
   },
   AS: {
-    // TODO: add /public/images/coffee-hero-as.jpg
-    image: "/images/coffee-hero.jpg",
+    image: "/images/coffee-hero-as.jpg",
     alt: "Minimalist pour-over setup on dark wood with neon reflection",
     badge: "Craft & Calm",
     headlineTop: "Precision in",
