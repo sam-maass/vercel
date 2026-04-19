@@ -1,8 +1,14 @@
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import Image from "next/image";
 import { cacheLife, cacheTag } from "next/cache";
 
 type Region = "EU" | "NA" | "AS";
+type Bucket = "A" | "B";
+
+const CTA_STYLES: Record<Bucket, string> = {
+  A: "bg-secondary text-secondary-foreground",
+  B: "bg-emerald-500 text-white",
+};
 
 const HERO_CONTENT: Record<
   Region,
@@ -54,11 +60,18 @@ function toRegion(continent: string | null | undefined): Region {
   return "NA";
 }
 
-async function RegionalHeroContent({ region }: { region: Region }) {
+async function RegionalHeroContent({
+  region,
+  bucket,
+}: {
+  region: Region;
+  bucket: Bucket;
+}) {
   "use cache: remote";
   cacheTag("hero");
   cacheLife("days");
   const c = HERO_CONTENT[region];
+  const ctaStyle = CTA_STYLES[bucket];
   return (
     <section className="relative h-[85vh] min-h-[600px] w-full overflow-hidden">
       <Image
@@ -87,7 +100,8 @@ async function RegionalHeroContent({ region }: { region: Region }) {
             <div className="mt-4 flex flex-wrap gap-4">
               <a
                 href="#preorder"
-                className="rounded-full bg-secondary px-8 py-4 text-lg font-semibold text-secondary-foreground shadow-lg transition hover:scale-105 hover:shadow-xl"
+                data-ab-cta={bucket}
+                className={`rounded-full px-8 py-4 text-lg font-semibold shadow-lg transition hover:scale-105 hover:shadow-xl ${ctaStyle}`}
               >
                 {c.ctaPrimary}
               </a>
@@ -107,9 +121,10 @@ async function RegionalHeroContent({ region }: { region: Region }) {
 }
 
 export async function RegionalHero() {
-  const h = await headers();
+  const [h, c] = await Promise.all([headers(), cookies()]);
   const region = toRegion(h.get("x-vercel-ip-continent"));
-  return <RegionalHeroContent region={region} />;
+  const bucket: Bucket = c.get("ab-cta")?.value === "B" ? "B" : "A";
+  return <RegionalHeroContent region={region} bucket={bucket} />;
 }
 
 export function HeroFallback() {
