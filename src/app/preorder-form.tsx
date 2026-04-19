@@ -12,9 +12,9 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="h-12 rounded-full bg-amber-600 px-6 text-sm font-semibold text-white transition hover:bg-amber-700 disabled:cursor-not-allowed disabled:opacity-60"
+      className="h-14 rounded-full bg-primary px-8 text-base font-semibold text-primary-foreground shadow-md transition hover:scale-105 hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
     >
-      {pending ? "Reserving..." : "Reserve my beans"}
+      {pending ? "Reserving..." : "Reserve My Beans"}
     </button>
   );
 }
@@ -23,23 +23,23 @@ export function PreorderForm() {
   const [state, formAction] = useActionState(submitPreorder, initialState);
 
   return (
-    <form action={formAction} className="flex w-full flex-col gap-4">
+    <form action={formAction} className="flex w-full flex-col gap-5">
       <div className="flex flex-col gap-2">
-        <label htmlFor="email" className="text-sm font-medium text-stone-200">
-          Email
+        <label htmlFor="email" className="text-sm font-semibold text-foreground">
+          Email Address
         </label>
         <input
           id="email"
           name="email"
           type="email"
           required
-          placeholder="you@example.com"
-          className="h-12 rounded-lg border border-stone-700 bg-stone-900/80 px-4 text-sm text-stone-100 placeholder:text-stone-500 focus:border-amber-500 focus:outline-none"
+          placeholder="hello@example.com"
+          className="h-14 rounded-xl border-2 border-border bg-background px-4 text-base text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
         />
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="kg" className="text-sm font-medium text-stone-200">
-          How many 1&nbsp;kg bags?
+        <label htmlFor="kg" className="text-sm font-semibold text-foreground">
+          How many 1 kg bags?
         </label>
         <input
           id="kg"
@@ -49,14 +49,14 @@ export function PreorderForm() {
           max={100}
           defaultValue={1}
           required
-          className="h-12 w-32 rounded-lg border border-stone-700 bg-stone-900/80 px-4 text-sm text-stone-100 focus:border-amber-500 focus:outline-none"
+          className="h-14 w-32 rounded-xl border-2 border-border bg-background px-4 text-base text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
         />
       </div>
       <SubmitButton />
       {state.message && (
         <p
           role="status"
-          className={`text-sm ${state.ok ? "text-emerald-400" : "text-red-400"}`}
+          className={`text-sm font-medium ${state.ok ? "text-accent" : "text-primary"}`}
         >
           {state.message}
         </p>
