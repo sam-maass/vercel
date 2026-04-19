@@ -52,6 +52,8 @@ export default function Home() {
           src="/images/coffee-hero.jpg"
           alt="Luxurious artisanal coffee moment with steam rising"
           fill
+          sizes="100vw"
+          quality={65}
           className="object-cover"
           priority
         />
