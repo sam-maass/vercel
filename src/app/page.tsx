@@ -19,41 +19,53 @@ export default async function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="mx-auto grid max-w-7xl items-center gap-8 px-6 py-16 md:grid-cols-2 md:gap-12 md:px-12 md:py-24">
-          <div className="flex flex-col gap-6">
-            <span className="w-fit rounded-full border-2 border-primary bg-primary/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-wider text-primary">
-              Coming Soon
-            </span>
-            <h1 className="font-serif text-5xl font-black leading-tight tracking-tight md:text-7xl">
-              <span className="text-balance">Good Coffee,</span>
-              <span className="block text-primary">Good Vibes</span>
-            </h1>
-            <p className="max-w-md text-lg leading-relaxed text-muted-foreground">
-              Small-batch specialty roasts crafted with care. We source the finest beans and roast them to perfection, delivering sunshine in every cup.
-            </p>
-            <a
-              href="#preorder"
-              className="mt-2 w-fit rounded-full bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-lg transition hover:scale-105 hover:bg-primary/90"
-            >
-              Reserve Your Beans
-            </a>
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-2xl">
-            <Image
-              src="/images/coffee-hero.jpg"
-              alt="Barista crafting artisan coffee in warm sunlight"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 rounded-3xl ring-4 ring-inset ring-white/20" />
+      {/* Hero Section - Full Width */}
+      <section className="relative h-[85vh] min-h-[600px] w-full overflow-hidden">
+        {/* Full-width background image */}
+        <Image
+          src="/images/coffee-hero.jpg"
+          alt="Luxurious artisanal coffee moment with steam rising"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Gradient overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+        
+        {/* Content */}
+        <div className="relative z-10 flex h-full items-center">
+          <div className="mx-auto w-full max-w-7xl px-6 md:px-12">
+            <div className="flex max-w-2xl flex-col gap-6">
+              <span className="w-fit rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-sm font-medium uppercase tracking-widest text-white/90 backdrop-blur-sm">
+                Coming Soon
+              </span>
+              <h1 className="font-serif text-5xl font-black leading-[1.1] tracking-tight text-white md:text-7xl lg:text-8xl">
+                <span className="text-balance">Savor the</span>
+                <span className="block text-secondary">Moment</span>
+              </h1>
+              <p className="max-w-lg text-lg leading-relaxed text-white/80 md:text-xl">
+                Fresh, luxurious, small-batch coffee that transforms your morning into a ritual. Close your eyes. Breathe deep. This is your moment.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-4">
+                <a
+                  href="#preorder"
+                  className="rounded-full bg-secondary px-8 py-4 text-lg font-semibold text-secondary-foreground shadow-lg transition hover:scale-105 hover:shadow-xl"
+                >
+                  Reserve Your Beans
+                </a>
+                <a
+                  href="#craft"
+                  className="rounded-full border-2 border-white/30 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+                >
+                  Our Craft
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-        {/* Decorative blob */}
-        <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-secondary/30 blur-3xl" />
-        <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-accent/20 blur-3xl" />
+
+        {/* Subtle animated gradient accent */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
       </section>
 
       {/* Craft Section */}
