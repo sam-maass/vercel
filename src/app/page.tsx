@@ -5,7 +5,7 @@ import { readPreorders, totalKg } from "@/lib/preorders";
 import { PreorderForm } from "./preorder-form";
 
 async function PreorderCounter() {
-  "use cache";
+  "use cache: remote";
   cacheTag("preorders");
   const [total, orders] = await Promise.all([totalKg(), readPreorders()]);
   return (
