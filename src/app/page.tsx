@@ -1,8 +1,8 @@
-import Image from "next/image";
 import { Suspense } from "react";
 import { cacheTag } from "next/cache";
 import { readPreorders, totalKg } from "@/lib/preorders";
 import { PreorderForm } from "./preorder-form";
+import { HeroFallback, RegionalHero } from "./regional-hero";
 
 async function PreorderCounter() {
   "use cache: remote";
@@ -45,56 +45,9 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section - Full Width */}
-      <section className="relative h-[85vh] min-h-[600px] w-full overflow-hidden">
-        {/* Full-width background image */}
-        <Image
-          src="/images/coffee-hero.jpg"
-          alt="Luxurious artisanal coffee moment with steam rising"
-          fill
-          sizes="100vw"
-          quality={65}
-          className="object-cover"
-          priority
-        />
-        {/* Gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
-        
-        {/* Content */}
-        <div className="relative z-10 flex h-full items-center">
-          <div className="mx-auto w-full max-w-7xl px-6 md:px-12">
-            <div className="flex max-w-2xl flex-col gap-6">
-              <span className="w-fit rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-sm font-medium uppercase tracking-widest text-white/90 backdrop-blur-sm">
-                Coming Soon
-              </span>
-              <h1 className="font-serif text-5xl font-black leading-[1.1] tracking-tight text-white md:text-7xl lg:text-8xl">
-                <span className="text-balance">Savor the</span>
-                <span className="block text-secondary">Moment</span>
-              </h1>
-              <p className="max-w-lg text-lg leading-relaxed text-white/80 md:text-xl">
-                Fresh, luxurious, small-batch coffee that transforms your morning into a ritual. Close your eyes. Breathe deep. This is your moment.
-              </p>
-              <div className="mt-4 flex flex-wrap gap-4">
-                <a
-                  href="#preorder"
-                  className="rounded-full bg-secondary px-8 py-4 text-lg font-semibold text-secondary-foreground shadow-lg transition hover:scale-105 hover:shadow-xl"
-                >
-                  Reserve Your Beans
-                </a>
-                <a
-                  href="#craft"
-                  className="rounded-full border-2 border-white/30 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
-                >
-                  Our Craft
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Smooth gradient transition to next section */}
-        <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-muted via-muted/70 to-transparent" />
-      </section>
+      <Suspense fallback={<HeroFallback />}>
+        <RegionalHero />
+      </Suspense>
 
       {/* Craft Section */}
       <section id="craft" className="bg-muted pt-8 pb-20">
